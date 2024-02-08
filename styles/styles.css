@@ -1,56 +1,66 @@
-body{
-    margin: 0;
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: hsl(0, 0%, 45%);
+    background-color: #F8C8DC;
 }
-#calculator{
-    font-family: Arial, sans-serif;
-    background-color: hsl(0, 24%, 41%);
-    border-radius: 15px;
-    max-width: 500px;
-    overflow: hidden;
+
+/* Position the "No" button absolutely within body */
+#noButton {
+    position: absolute;
+    margin-left: 150px;
+    transition: 0.5s;
+    /* Smooth movement */
 }
-#display{
-    width: 100%;
-    padding: 20px;
-    font-size: 5rem;
-    text-align: left;
-    border: none;
-    background-color: hsl(0, 0%, 0%);
-    color: white;
+
+#yesButton {
+    position: absolute;
+    margin-right: 150px;
+    /* Smooth movement */
 }
-#keys{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    padding: 25px;
-}
-button{
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
-    border: none;
-    background-color: hsl(0, 0%, 0%);
-    color: white;
-    font-size: 3rem;
+
+.header_text {
+    font-family: 'Nunito';
+    font-size: 50px;
     font-weight: bold;
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+    /* optional: adds some space between the buttons */
+}
+
+.btn {
+    background-color: #FFB6C1;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
 }
-button:hover{
-    background-color: hsl(0, 100%, 50%);
+
+.btn:hover {
+    background-color: #FAF9F6;
 }
-button:active{
-    background-color: hsl(0, 0%, 0%);
-}
-.operator-btn{
-    background-color: hsl(236, 100%, 50%);
-}
-.operator-btn:hover{
-    background-color: hsla(0, 100%, 50%, 0.877);
-}
-.operator-btn:active{
-    background-color: hsl(236, 100%, 50%);
+
+.gif_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 90px;
 }
