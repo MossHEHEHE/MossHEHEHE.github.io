@@ -22,10 +22,11 @@
         </div>
         <div class="buttons">
             <button class="btn" id="yesButton" onclick="nextPage()">Yes</button>
+            <button class="btn" id="maybeButton" onclick="nextPage()">Maybe</button>
             <button class="btn" id="noButton" onmouseover="moveButton()">No</button>
             <script>
                 function nextPage() {
-                    window.location.href = "yes.html";
+                    window.location.href = "yes.html"; // Change this URL as needed
                 }
                 function moveButton() {
                     var x = Math.random() * (window.innerWidth - document.getElementById('noButton').offsetWidth);
