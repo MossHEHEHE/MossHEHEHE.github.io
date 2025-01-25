@@ -1,4 +1,5 @@
 let highestZ = 1;
+
 class Paper {
   holdingPaper = false;
   mouseTouchX = 0;
@@ -13,7 +14,16 @@ class Paper {
   currentPaperX = 0;
   currentPaperY = 0;
   rotating = false;
+
   init(paper) {
+    paper.addEventListener('animationend', (e) => {
+      if (e.animationName === 'paperOut') {
+        this.addDragListeners(paper);
+      }
+    });
+  }
+
+  addDragListeners(paper) {
     document.addEventListener('mousemove', (e) => {
       if(!this.rotating) {
         this.mouseX = e.clientX;
@@ -21,6 +31,7 @@ class Paper {
         this.velX = this.mouseX - this.prevMouseX;
         this.velY = this.mouseY - this.prevMouseY;
       }
+      
       const dirX = e.clientX - this.mouseTouchX;
       const dirY = e.clientY - this.mouseTouchY;
       const dirLength = Math.sqrt(dirX*dirX+dirY*dirY);
@@ -29,9 +40,11 @@ class Paper {
       const angle = Math.atan2(dirNormalizedY, dirNormalizedX);
       let degrees = 180 * angle / Math.PI;
       degrees = (360 + Math.round(degrees)) % 360;
+      
       if(this.rotating) {
         this.rotation = degrees;
       }
+      
       if(this.holdingPaper) {
         if(!this.rotating) {
           this.currentPaperX += this.velX;
@@ -41,12 +54,14 @@ class Paper {
         this.prevMouseY = this.mouseY;
         paper.style.transform = `translateX(${this.currentPaperX}px) translateY(${this.currentPaperY}px) rotateZ(${this.rotation}deg)`;
       }
-    })
+    });
+
     paper.addEventListener('mousedown', (e) => {
       if(this.holdingPaper) return;
       this.holdingPaper = true;
       paper.style.zIndex = highestZ;
       highestZ += 1;
+      
       if(e.button === 0) {
         this.mouseTouchX = this.mouseX;
         this.mouseTouchY = this.mouseY;
@@ -57,11 +72,13 @@ class Paper {
         this.rotating = true;
       }
     });
+    
     window.addEventListener('mouseup', () => {
       this.holdingPaper = false;
       this.rotating = false;
     });
   }
+
   addSpecialEffects(paper) {
     paper.addEventListener('dblclick', () => {
       paper.style.transform = `translateX(${this.currentPaperX}px) translateY(${this.currentPaperY}px) rotateZ(${this.rotation + 360}deg)`;
@@ -71,17 +88,65 @@ class Paper {
     });
   }
 }
+
+// Initialize papers
 const papers = Array.from(document.querySelectorAll('.paper'));
 papers.forEach(paper => {
   const p = new Paper();
   p.init(paper);
   p.addSpecialEffects(paper);
 });
+
+// Hide all papers initially
+papers.forEach(paper => {
+  paper.style.display = 'none';
+});
+
+// Envelope interaction
+const envelope = document.querySelector('.envelope'); // Get existing envelope instead of creating new one
+let currentPaperIndex = 0;
+let isAnimating = false;
+
+envelope.addEventListener('click', function() {
+  if (isAnimating) return;
+  
+  if (!this.classList.contains('opened')) {
+    // First click - open envelope fully
+    this.classList.add('opened');
+    setTimeout(showNextPaper, 500);
+  } else {
+    showNextPaper();
+  }
+});
+
+function showNextPaper() {
+  if (currentPaperIndex >= papers.length || isAnimating) return;
+  
+  isAnimating = true;
+  const paper = papers[currentPaperIndex];
+  
+  // Position paper inside envelope
+  paper.style.display = 'block';
+  paper.style.zIndex = 1000 + currentPaperIndex;
+  
+  // Trigger animation
+  setTimeout(() => {
+    paper.classList.add('animate-out');
+    
+    // Animation complete
+    setTimeout(() => {
+      isAnimating = false;
+      currentPaperIndex++;
+    }, 1000);
+  }, 100);
+}
+
+// Button event listeners
 const yesBtn = document.getElementById('yes-btn');
 const noBtn = document.getElementById('no-btn');
-const responseMessage = document.getElementById('response-message');
-const floatingHeart = document.getElementById('floating-heart');
+
 yesBtn.addEventListener('click', () => {
+  const responseMessage = document.getElementById('response-message');
   responseMessage.style.display = 'block';
   responseMessage.classList.add('celebrate');
   createHeartConfetti();
@@ -93,7 +158,11 @@ yesBtn.addEventListener('click', () => {
       createPetal();
     }, i * 100);
   }
+  document.body.classList.add('celebrate-active');
+  document.querySelector('.paper.heart').classList.add('show');
+  createFlowerAnimation();
 });
+
 noBtn.addEventListener('mouseover', (e) => {
   const btn = e.target;
   const newX = Math.random() * (window.innerWidth - btn.offsetWidth);
@@ -102,6 +171,7 @@ noBtn.addEventListener('mouseover', (e) => {
   btn.style.left = newX + 'px';
   btn.style.top = newY + 'px';
 });
+
 function createHeartConfetti() {
   for (let i = 0; i < 50; i++) {
     const heart = document.createElement('div');
@@ -117,6 +187,7 @@ function createHeartConfetti() {
     }, 5000);
   }
 }
+
 const style = document.createElement('style');
 style.textContent = `
   @keyframes fall {
@@ -167,6 +238,3 @@ function createFlowerAnimation() {
     createPetal();
   }, 1000);
 }
-
-// Start flower animation when page loads
-window.addEventListener('load', createFlowerAnimation);
