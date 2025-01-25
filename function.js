@@ -62,9 +62,111 @@ class Paper {
       this.rotating = false;
     });
   }
+  addSpecialEffects(paper) {
+    paper.addEventListener('dblclick', () => {
+      paper.style.transform = `translateX(${this.currentPaperX}px) translateY(${this.currentPaperY}px) rotateZ(${this.rotation + 360}deg)`;
+      setTimeout(() => {
+        paper.style.transition = 'transform 0.3s ease';
+      }, 0);
+    });
+  }
 }
 const papers = Array.from(document.querySelectorAll('.paper'));
 papers.forEach(paper => {
   const p = new Paper();
   p.init(paper);
+  p.addSpecialEffects(paper);
 });
+const yesBtn = document.getElementById('yes-btn');
+const noBtn = document.getElementById('no-btn');
+const responseMessage = document.getElementById('response-message');
+const floatingHeart = document.getElementById('floating-heart');
+yesBtn.addEventListener('click', () => {
+  responseMessage.style.display = 'block';
+  responseMessage.classList.add('celebrate');
+  createHeartConfetti();
+  document.getElementById('valentine-request').style.display = 'none';
+  
+  // Create extra flower celebration
+  for (let i = 0; i < 30; i++) {
+    setTimeout(() => {
+      createPetal();
+    }, i * 100);
+  }
+});
+noBtn.addEventListener('mouseover', (e) => {
+  const btn = e.target;
+  const newX = Math.random() * (window.innerWidth - btn.offsetWidth);
+  const newY = Math.random() * (window.innerHeight - btn.offsetHeight);
+  btn.style.position = 'fixed';
+  btn.style.left = newX + 'px';
+  btn.style.top = newY + 'px';
+});
+function createHeartConfetti() {
+  for (let i = 0; i < 50; i++) {
+    const heart = document.createElement('div');
+    heart.innerHTML = '❤️';
+    heart.style.position = 'fixed';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.top = '-20px';
+    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+    heart.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
+    document.body.appendChild(heart);
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }
+}
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes fall {
+    to {
+      transform: translateY(100vh) rotate(360deg);
+    }
+  }
+`;
+document.head.appendChild(style);
+
+// Create and animate flowers
+function createFlowerAnimation() {
+  // Create bouquet
+  const bouquet = document.createElement('img');
+  bouquet.src = 'https://i.imgur.com/8kHcfoF.png'; // Flower bouquet image
+  bouquet.className = 'bouquet';
+  document.body.appendChild(bouquet);
+
+  // Create falling petals
+  const petalImages = [
+    '🌸', '🌺', '🌹', '🌷', '💐'
+  ];
+
+  function createPetal() {
+    const petal = document.createElement('div');
+    petal.className = 'flower-petal';
+    petal.innerHTML = petalImages[Math.floor(Math.random() * petalImages.length)];
+    petal.style.left = Math.random() * 100 + 'vw';
+    petal.style.fontSize = (Math.random() * 20 + 10) + 'px';
+    petal.style.animationDuration = (Math.random() * 3 + 3) + 's';
+    document.body.appendChild(petal);
+
+    // Remove petal after animation
+    setTimeout(() => {
+      petal.remove();
+    }, 6000);
+  }
+
+  // Create initial petals
+  for (let i = 0; i < 20; i++) {
+    setTimeout(() => {
+      createPetal();
+    }, i * 300);
+  }
+
+  // Continue creating petals
+  setInterval(() => {
+    createPetal();
+  }, 1000);
+}
+
+// Start flower animation when page loads
+window.addEventListener('load', createFlowerAnimation);

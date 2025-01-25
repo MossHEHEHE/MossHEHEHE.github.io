@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Zeyada&family=Sacramento&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
 /* Global Styles */
 body {
@@ -6,93 +6,221 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff5f8; /* Soft pink background */
-  background-image: linear-gradient(135deg, #ffccd5 25%, #ffe4e6 50%, #ffd6d9 75%);
-  background-size: 150%;
-  background-position: center center;
+  background: linear-gradient(135deg, #ff6b6b, #ff8585, #ffa5a5);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
   margin: 0;
   overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Paper Styles */
 .paper {
-  background-color: #fff; /* White paper */
-  background-image: url("https://i.pinimg.com/originals/7a/27/57/7a2757929b7a0be3e259ea804db334e8.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
-  padding: 30px 120px;
-  transform: rotateZ(-5deg);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.15);
-  position: relative;
-  border-radius: 15px;
+  background-color: #fff;
+  background-image: 
+    linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
+    linear-gradient(#eee .1em, transparent .1em);
+  background-size: 100% 1.2em;
+  padding: 40px;
+  transform: rotateZ(-3deg);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: grab;
+  max-width: 400px;
+  margin: 20px;
+}
+
+.paper:hover {
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+}
+
+.paper:active {
+  cursor: grabbing;
 }
 
 /* Heart Element */
 .paper.heart {
-  position: relative;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   padding: 0;
-  background: radial-gradient(circle, #ff617a, #ff496c);
+  background: linear-gradient(45deg, #ff4b6e, #ff6b8b);
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 15px rgba(255, 0, 76, 0.5);
+  position: relative;
+  animation: heartbeat 1.5s ease-in-out infinite;
 }
 
-.paper.heart::after,
-.paper.heart::before {
-  content: "";
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  background: inherit;
-  border-radius: 50%;
-  top: -60px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.paper.heart::before {
-  left: auto;
-  right: 50%;
+@keyframes heartbeat {
+  0% { transform: scale(1) rotateZ(-3deg); }
+  50% { transform: scale(1.1) rotateZ(-3deg); }
+  100% { transform: scale(1) rotateZ(-3deg); }
 }
 
 /* Image Styling */
-img {
-  max-height: 200px;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+.paper img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-/* Valentine's Day Text Styling */
-p {
-  font-family: 'Sacramento', cursive;
-  font-size: 48px;
-  color: #d81b60; /* Rich pink */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  margin: 0;
+.paper img:hover {
+  transform: scale(1.05);
+}
+
+/* Text Styling */
+.paper p {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5em;
+  color: #ff4b6e;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
   text-align: center;
-  user-select: none;
 }
 
-.paper.image p {
-  font-size: 36px;
-  color: #e91e63; /* Vibrant pink */
-  padding: 10px;
+.special-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2em;
+  color: #666;
+  text-align: center;
+  margin-top: 20px;
 }
 
-/* Additional Paper Variants */
-.paper.red {
-  background: linear-gradient(145deg, #ff7f7f, #ff4d4d);
+/* Button Styling */
+.choice-btn {
+  background: linear-gradient(45deg, #ff4b6e, #ff6b8b);
+  border: none;
+  padding: 12px 25px;
   color: white;
+  border-radius: 25px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 10px;
+  box-shadow: 0 5px 15px rgba(255, 75, 110, 0.3);
 }
 
-.paper:nth-of-type(3n) {
-  transform: rotateZ(3deg);
-  background: linear-gradient(145deg, #ffd6e8, #ffc3dc);
+.choice-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 75, 110, 0.4);
+}
+
+/* Response Animation */
+@keyframes celebrate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.celebrate {
+  animation: celebrate 0.5s ease-in-out, fadeOut 1s ease-in forwards 3s;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Flower Animation */
+.flower-petal {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  animation: floatPetal 6s linear infinite;
+}
+
+.bouquet {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  animation: presentBouquet 2s ease-out forwards;
+  width: 200px;
+  height: 200px;
+  opacity: 0;
+}
+
+@keyframes floatPetal {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes presentBouquet {
+  0% {
+    bottom: -100px;
+    opacity: 0;
+    transform: translateX(-50%) scale(0.5);
+  }
+  50% {
+    bottom: 20vh;
+    opacity: 1;
+    transform: translateX(-50%) scale(1.2);
+  }
+  75% {
+    bottom: 15vh;
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    bottom: 18vh;
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
+/* Add these styles for card stacking and centering */
+.paper-stack {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none; /* This allows clicking through the container */
+}
+
+.paper {
+  pointer-events: auto; /* Re-enable clicking on papers */
+  position: relative;
+  margin: -150px auto 0; /* Negative margin for stacking */
+}
+
+/* Specific z-index for each paper */
+#interaction-hint {
+  z-index: 4;
+}
+
+#main-message {
+  z-index: 3;
+}
+
+#valentine-request {
+  z-index: 2;
+}
+
+#response-message {
+  z-index: 5; /* Highest z-index to appear above all when shown */
+}
+
+#floating-heart {
+  z-index: 1;
 }

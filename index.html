@@ -2,36 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Happy Valentine's Day Love! ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Be My Valentine? ❤️</title>
   <link rel="stylesheet" href="styles/styles.css">
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Sacramento&family=Zeyada&display=swap'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <!-- Heart Paper -->
-  <div class="paper heart"></div>
+  <!-- Floating Heart -->
+  <div class="paper heart" id="floating-heart"></div>
 
-  <!-- Image with Heart GIF -->
-  <div class="paper image">
-    <p>💖 Sending you my heart 💖</p>
-    <img src="cute_heart_gif.gif" alt="Animated Heart GIF">
-  </div>
+  <!-- Stack all papers in a container -->
+  <div class="paper-stack">
+    <!-- Interaction Hint (Top) -->
+    <div class="paper" id="interaction-hint">
+      <p class="special-text">
+        <i class="fas fa-hand-pointer"></i> Drag the papers around!
+      </p>
+    </div>
 
-  <!-- Yes or No Prompt -->
-  <div class="paper image">
-    <p>Yes? ❤️</p>
-    <p>Or no? 💔</p>
-  </div>
+    <!-- Main Message (Middle) -->
+    <div class="paper" id="main-message">
+      <p>Dear Delaney,</p>
+      <p>Every moment with you makes my heart smile. You are my pretty girl.</p>
+      <img src="cute_heart_gif.gif" alt="Cute Couple">
+    </div>
 
-  <!-- Valentine’s Day Proposal -->
-  <div class="paper image">
-    <p>Will you be</p>
-    <p>My Valentine, Delaney? 💌</p>
-    <img src="littlebitofab-please.gif" alt="Cute GIF">
-  </div>
+    <!-- Valentine's Request (Bottom) -->
+    <div class="paper" id="valentine-request">
+      <p>Will you be my Valentine?</p>
+      <div class="button-container">
+        <button class="choice-btn" id="yes-btn">
+          <i class="fas fa-heart"></i> Yes!
+        </button>
+        <button class="choice-btn" id="no-btn">
+          <i class="fas fa-heart-broken"></i> No
+        </button>
+      </div>
+    </div>
 
-  <!-- Interaction Note -->
-  <div class="paper">
-    <p class="p1">Drag the papers to move!</p>
+    <!-- Hidden Response Message -->
+    <div class="paper" id="response-message" style="display: none;">
+      <p class="celebration-text">You've made me the happiest person! ❤️</p>
+      <img src="cute_heart_gif.gif" alt="Celebration">
+    </div>
   </div>
 
   <script src="function.js"></script>
