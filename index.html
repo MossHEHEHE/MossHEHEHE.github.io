@@ -3,33 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Will You Be My Valentine? ❤️</title>
+  <title>Interactive Paper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <!-- Floating Heart -->
-  <div class="paper heart" id="floating-heart"></div>
+  <!-- Envelope must be before papers for proper z-index layering -->
+  <div class="envelope" id="envelope"></div>
 
   <!-- Stack all papers in a container -->
   <div class="paper-stack">
-    <!-- Interaction Hint (Top) -->
-    <div class="paper" id="interaction-hint">
-      <p class="special-text">
-        <i class="fas fa-hand-pointer"></i> Drag the papers around!
-      </p>
-    </div>
-
-    <!-- Main Message (Middle) -->
-    <div class="paper" id="main-message">
-      <p>Dear Delaney,</p>
-      <p>Every moment with you makes my heart smile. You are my pretty girl.</p>
-      <img src="cute_heart_gif.gif" alt="Cute Couple">
-    </div>
-
     <!-- Valentine's Request (Bottom) -->
     <div class="paper" id="valentine-request">
-      <p>Will you be my Valentine?</p>
+      <p>Delaney, Will you be my Valentine?</p>
+      <img src="littlebitofab-please.gif" alt="Please!" id="gif-please" style="width: 100px; display: block;"> <!-- This is the new GIF included -->
       <div class="button-container">
         <button class="choice-btn" id="yes-btn">
           <i class="fas fa-heart"></i> Yes!
@@ -42,13 +30,10 @@
 
     <!-- Hidden Response Message -->
     <div class="paper" id="response-message" style="display: none;">
-      <p class="celebration-text">You've made me the happiest person! ❤️</p>
+      <p class="celebration-text">YIPPEE!! You've made me the happiest person ever! I love you so much Delaney❤️</p>
       <img src="cute_heart_gif.gif" alt="Celebration">
     </div>
   </div>
-
-  <!-- Add this right after the body tag -->
-  <div class="envelope"></div>
 
   <script src="function.js"></script>
 </body>

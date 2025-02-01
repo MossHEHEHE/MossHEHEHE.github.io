@@ -12,21 +12,26 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Paper Styles */
+/* Draggable Paper Styles */
 .paper {
   background-color: #fff;
   background-image: 
     linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
-    linear-gradient(#eee .1em, transparent .1em);
+    linear-gradient(#eee 0.1em, transparent 0.1em);
   background-size: 100% 1.2em;
   padding: 40px;
-  transform: none;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: grab;
   max-width: 400px;
-  margin: 20px;
+  /* For dragging, the element must be positioned absolutely */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0;
+  display: none;
 }
 
 .paper:hover {
@@ -35,35 +40,6 @@ body {
 
 .paper:active {
   cursor: grabbing;
-}
-
-/* Heart Element */
-.paper.heart {
-  display: none;
-  width: 200px;
-  height: 200px;
-  padding: 0;
-  background: linear-gradient(45deg, #ff4b6e, #ff6b8b);
-  border-radius: 50%;
-  position: relative;
-}
-
-.paper.heart.show {
-  display: block;
-  animation: heartbeat 1.5s ease-in-out infinite;
-}
-
-/* Image Styling */
-.paper img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.paper img:hover {
-  transform: scale(1.05);
 }
 
 /* Text Styling */
@@ -122,24 +98,11 @@ body {
   }
 }
 
-/* Flower Animation */
+/* Flower (and Confetti) Animation */
 .flower-petal {
   position: fixed;
-  pointer-events: none;
   z-index: 1000;
   animation: floatPetal 6s linear infinite;
-}
-
-.bouquet {
-  position: fixed;
-  bottom: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  animation: presentBouquet 2s ease-out forwards;
-  width: 200px;
-  height: 200px;
-  opacity: 0;
 }
 
 @keyframes floatPetal {
@@ -153,29 +116,7 @@ body {
   }
 }
 
-@keyframes presentBouquet {
-  0% {
-    bottom: -100px;
-    opacity: 0;
-    transform: translateX(-50%) scale(0.5);
-  }
-  50% {
-    bottom: 20vh;
-    opacity: 1;
-    transform: translateX(-50%) scale(1.2);
-  }
-  75% {
-    bottom: 15vh;
-    transform: translateX(-50%) scale(1);
-  }
-  100% {
-    bottom: 18vh;
-    opacity: 1;
-    transform: translateX(-50%) scale(1.1);
-  }
-}
-
-/* Add these styles for card stacking and centering */
+/* Card Stacking & Centering */
 .paper-stack {
   position: fixed;
   top: 50%;
@@ -186,44 +127,23 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  pointer-events: none;
 }
 
-.paper {
-  pointer-events: auto;
-  position: relative;
-  margin: -80px auto 0;
-}
+/* (Optional) Specific z-index for different papers */
+#interaction-hint { z-index: 4; }
+#main-message     { z-index: 3; }
+#valentine-request{ z-index: 2; }
+#response-message { z-index: 5; }
+#floating-heart   { z-index: 1; }
 
-/* Specific z-index for each paper */
-#interaction-hint {
-  z-index: 4;
-}
-
-#main-message {
-  z-index: 3;
-}
-
-#valentine-request {
-  z-index: 2;
-}
-
-#response-message {
-  z-index: 5;
-}
-
-#floating-heart {
-  z-index: 1;
-}
-
-/* Add celebration effects for yes response */
+/* Celebration Effects */
 .celebrate-active {
   animation: celebrate 0.5s ease-in-out;
   background: linear-gradient(135deg, #ff6b6b, #ff8585);
   background-size: 400% 400%;
 }
 
-/* Updated envelope styles */
+/* Updated Envelope Styles */
 .envelope {
   width: 300px;
   height: 200px;
@@ -265,16 +185,7 @@ body {
   transition: transform 1s ease;
 }
 
-/* Paper animation styles */
-.paper {
-  position: absolute;
-  left: 50%;
-  bottom: 50%;
-  transform: translate(-50%, 0) scale(0.5);
-  opacity: 0;
-  transition: none;
-}
-
+/* Paper Animation (Entrance) */
 .paper.animate-out {
   animation: paperOut 1s ease forwards;
 }
@@ -294,20 +205,34 @@ body {
   }
 }
 
-/* Paper stack positioning */
-.paper-stack {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
+/* Animate-in effect: fade in with a slight upward movement */
+@keyframes animateIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Hide all papers initially */
-.paper {
-  display: none;
+.animate-in {
+  animation: animateIn 0.8s ease forwards;
 }
 
-.paper.visible {
-  display: block;
+/* Fade-out effect */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
+
+.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+
