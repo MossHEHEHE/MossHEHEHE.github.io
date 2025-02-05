@@ -166,20 +166,103 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Optionally, show some fun effect or behavior when "No" is clicked
   noBtn.addEventListener('click', () => {
-    alert("Oh no, maybe next time!");
+    alert("Okay)= . Im going to go cry now");
   });
 
   // Add the teleport effect on hover over "No" button
-  noBtn.addEventListener('mouseover', (e) => {
-    const btn = e.target;
+  noBtn.addEventListener('mouseover', () => {
+    const body = document.body;
+    const finalPaper = document.querySelector('.paper'); // Select the final paper element
 
-    // Generate a random position on the screen for the button to teleport to
-    const newX = Math.random() * (window.innerWidth - btn.offsetWidth);
-    const newY = Math.random() * (window.innerHeight - btn.offsetHeight);
+    for (let i = 0; i < 10; i++) {
+      const yesBtn = document.createElement('button');
+      yesBtn.className = 'choice-btn';
+      yesBtn.textContent = 'Yes?😊';
+      yesBtn.style.position = 'fixed';
+      yesBtn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+      yesBtn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+      yesBtn.style.fontFamily = '"Dancing Script", cursive';
+      yesBtn.style.fontSize = '20px';
+      yesBtn.style.backgroundColor = '#ffcccc';
+      yesBtn.style.border = 'none';
+      yesBtn.style.borderRadius = '5px';
+      yesBtn.style.padding = '10px 20px';
+      yesBtn.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+      yesBtn.style.cursor = 'pointer';
+      yesBtn.style.zIndex = 1000;
 
-    // Apply the new position
-    btn.style.position = 'fixed'; // Fix the button's position so it doesn't move with the page scroll
-    btn.style.left = newX + 'px';
-    btn.style.top = newY + 'px';
+      // Use the same click handler for dynamic "Yes" buttons
+      yesBtn.addEventListener('click', () => {
+        yesBtn.remove(); // Remove the button from the DOM
+      });
+
+      body.appendChild(yesBtn);
+
+      yesBtn.style.opacity = 0;
+      setTimeout(() => {
+        yesBtn.style.transition = 'opacity 0.5s ease';
+        yesBtn.style.opacity = 1;
+      }, 0);
+    }
   });
 });
+
+// Function to start the celebration with continuously falling hearts and flowers
+function startCelebration() {
+  const emojis = ['❤️', '🌸', '💖', '🌺', '💐'];
+  const body = document.body;
+
+  function createFallingEmoji() {
+    const emoji = document.createElement('div');
+    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    emoji.style.position = 'fixed';
+    emoji.style.left = Math.random() * window.innerWidth + 'px';
+    emoji.style.top = '-50px'; // Start above the screen
+    emoji.style.fontSize = '24px';
+    emoji.style.zIndex = 2000;
+    emoji.style.transition = `transform ${Math.random() * 3 + 2}s linear, opacity ${Math.random() * 3 + 2}s linear`;
+    body.appendChild(emoji);
+
+    // Animate the emoji falling down with a slight horizontal drift
+    setTimeout(() => {
+      emoji.style.transform = `translate(${Math.random() * 100 - 50}px, ${window.innerHeight + 50}px)`;
+      emoji.style.opacity = 0;
+    }, 0);
+
+    // Remove the emoji after the animation
+    setTimeout(() => {
+      emoji.remove();
+    }, 5000);
+  }
+
+  // Continuously create new emojis at intervals
+  setInterval(createFallingEmoji, 20); // Adjust the interval for more or fewer emojis
+}
+
+// Define the action to be performed when "Yes" is clicked
+function handleYesClick() {
+  const finalPaper = document.querySelector('.paper'); // Ensure this targets the correct paper element
+  const responseMessage = document.querySelector('.response-message'); // Select the response message element
+
+  // Show the final paper
+  finalPaper.style.display = 'block';
+  setTimeout(() => {
+    finalPaper.style.opacity = 1; // Fade in the paper
+  }, 0);
+
+  // Show the response message
+  responseMessage.style.display = 'block';
+  setTimeout(() => {
+    responseMessage.style.opacity = 1; // Fade in the response message
+  }, 0);
+
+  // Remove all "Yes" buttons
+  document.querySelectorAll('.choice-btn').forEach(btn => btn.remove());
+
+  // Start the celebration
+  startCelebration();
+}
+
+// Add event listener to the static "Yes" button in the HTML
+const staticYesButton = document.querySelector('.choice-btn');
+staticYesButton.addEventListener('click', handleYesClick);

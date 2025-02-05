@@ -11,7 +11,10 @@ body {
   overflow: hidden;
   font-family: 'Poppins', sans-serif;
 }
-
+#gif-please {
+  float: right;
+  margin-left: 10px; /* Optional: Add some space between the image and other content */
+}
 /* Draggable Paper Styles */
 .paper {
   background-color: #fff;
@@ -33,7 +36,26 @@ body {
   opacity: 0;
   display: none;
 }
-
+.response-message {
+  background-color: #fff;
+  background-image: 
+    linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
+    linear-gradient(#eee 0.1em, transparent 0.1em);
+  background-size: 100% 1.2em;
+  padding: 40px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: grab;
+  max-width: 400px;
+  /* For dragging, the element must be positioned absolutely */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+  display: none;
+}
 .paper:hover {
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
 }
@@ -44,6 +66,14 @@ body {
 
 /* Text Styling */
 .paper p {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5em;
+  color: #ff4b6e;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  text-align: center;
+}
+.response-message p {
   font-family: 'Dancing Script', cursive;
   font-size: 2.5em;
   color: #ff4b6e;
@@ -80,23 +110,7 @@ body {
   box-shadow: 0 8px 20px rgba(255, 75, 110, 0.4);
 }
 
-/* Response Animation */
-@keyframes celebrate {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
 
-.celebrate {
-  animation: celebrate 0.5s ease-in-out, fadeOut 1s ease-in forwards 3s;
-}
-
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
 
 /* Flower (and Confetti) Animation */
 .flower-petal {
@@ -119,9 +133,9 @@ body {
 /* Card Stacking & Centering */
 .paper-stack {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 45%;
+  left:10%;
+  transform: translate(-7%, -60%);
   z-index: 1;
   width: 100%;
   display: flex;
